@@ -85,7 +85,7 @@ class Breadcrumbs extends Component {
   render() {
     return (
       <BreadcrumbsContainer>
-        Gift Cards > Charleston > Restaurants > American > Restaurant
+        Telegram-Bot > Messenger
         <Clearfix />
       </BreadcrumbsContainer>
     );
