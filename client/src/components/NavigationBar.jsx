@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
-import logo from '../assets/giftly-logo-header.png';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 
 const Container = styled.div`
@@ -58,11 +57,8 @@ class Header extends Component {
         <Navbar>
           <div style={{position: 'absolute', left: 20}}>
             <NavbarHeader>
-              <Navbar.Brand>
-                <img alt="" src={logo} />
-              </Navbar.Brand>
               <div className="card-name">
-                Gift Card
+                Telegram-Bot
               </div>
             </NavbarHeader>
             <Clearfix />
@@ -71,10 +67,10 @@ class Header extends Component {
             <Navbar.Collapse>
               <Nav>
                 <NavItem href="#">
-                  Browse
+                  Messenger
                 </NavItem>
                 <NavItem href="#">
-                  Corporate Gifts
+                  Bitcoin
                 </NavItem>
               </Nav>
             </Navbar.Collapse>

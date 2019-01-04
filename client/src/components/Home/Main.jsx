@@ -3,19 +3,13 @@ import styled from 'styled-components';
 import  Panel from 'react-bootstrap/lib/Panel';
 import  Button from 'react-bootstrap/lib/Button';
 import guaranteed_symbol from '../../assets/giftly-guarantee.png';
-import birthdayCard from '../../assets/happy-birthday-greeting-card.png';
-import dinner from '../../assets/dinner-at-any-restaurant.png';
-import anything from '../../assets/anything-at-anyplace.png'
-import enjoy from '../../assets/enjoy-greeting-card.png';
-import birthdayCandles from '../../assets/happy-birthday-candles-greeting-card.png';
-import congrats from '../../assets/congrats-greeting-card.png';
-import loveCard from '../../assets/love-greeting-card.png';
-import movies from '../../assets/movies-at-any-theater.png';
-import photo from '../../assets/photo-greeting-card.png';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
-import yelpLogo from '../../assets/yelp_logo.png';
 import logoSmall from '../../assets/giftly-small-white.png';
 
 const Container = styled.div`
@@ -121,89 +115,29 @@ const StyledPanel = styled(Panel)`
 
 `
 
-const CustomizableCardsPanel = styled(Panel)`
-  .panel-heading {
-    background: #fff;
-    border-bottom: 0;
-    color: #A3BCC1;
-    font-size: 18px;
-    text-align: center;
-    padding: 20px 20px 0 20px;
-  }
-  ul {
-    margin: auto;
-    padding: 0;
-    width: fit-content;
-    margin-bottom: 100px;
-    li {
-      list-style: none;
-      float: left;
-      padding: 4px;
-    }
-  }
-  img {
-    width: 60px;
-  }
-`
-
-const AboutUsPanel = styled(StyledPanel)`
-  img.photo {
-    width: 130px;
-    border-radius: 4px;
-    clip-path: inset(0px 30px 0px 0px);
-  }
-  .business-name {
-    font-size: 20px;
-    position: relative;
-    top: -7px;
-  }
-  .rating {
-    background: url(https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png) no-repeat;
-    background-size: 132px 560px;
-    display: inline-block;
-    vertical-align: middle;
-    height: 24px;
-    background-position: 0 -168px;
-    padding-left: 140px;
-    width: 350px;
-    img {
-      width: 60px;
-    }
-  }
-  .review-count {
-    position: relative;
-    top: -5px;
-    font-size: 10px;
-  }
-  .reviews {
-    img {
-      float: left;
-    }
-    .text {
-      position: relative;
-      top: 13px;
-      float: left;
-      font-size: 20px;
-    }
-    .review-rating {
-      background: url(https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png) no-repeat;
-      background-size: 132px 560px;
-      display: inline-block;
-      vertical-align: middle;
-      height: 18px;
-      background-position: 16px -366px;
-      padding: 0;
-    }
-    .review {
-      position: initial;
-      margin-top: -6px;
-      font-size: 14px;
-      margin-left: -16px;
-    }
-  }
-`
-
 class Main extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      value: ''
+    };
+  }
+
+  getValidationState() {
+    const length = this.state.value.length;
+    if (length > 10 && length < 235) return 'success';
+    else if (length > 5) return 'warning';
+    else if (length > 0) return 'error';
+    return null;
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
+
   render() {
     return (
       <Container className="Main">
@@ -211,207 +145,43 @@ class Main extends Component {
           ? <div>
           <StyledPanelMain>
             <Panel.Heading>
-              Buy a Gift Card to Shop
+              Enter Message
             </Panel.Heading>
             <Panel.Body>
-              <p>
-                Send a personalized cash gift card that is suggested for use at
-                &nbsp;<span style={{color: '#F1B01B', fontWeight: 'bold'}}>ABC Company</span>. Any amount up to $1,000. Deliver by email, mail, or print
-                at home.
-              </p>
-              <p>
-                You suggest where to go and what to get— the recipient always get
-                what they want.
-              </p>
+              <form>
+                <FormGroup
+                  controlId="formBasicText"
+                  validationState={this.getValidationState()}
+                >
+                  <ControlLabel>Send private message:</ControlLabel>
+                  <FormControl
+                    componentClass="textarea"
+                    rows={5}
+                    value={this.state.value}
+                    placeholder="Enter message"
+                    onChange={this.handleChange}
+                  />
+                  <FormControl.Feedback />
+                  <HelpBlock>Message should be under 235 characters.</HelpBlock>
+                </FormGroup>
+              </form>
               <ButtonContainer>
-                <Button bsStyle="primary">Customize & Build >> </Button>
+                <Button bsStyle="primary">Send Message &raquo;</Button>
               </ButtonContainer>
-              <GaranteeContainer style={{margin: 'auto'}}>
-                <img alt="" style={{float: 'left'}} src={guaranteed_symbol}/>
-                <div style={{float: 'right', position: 'relative', top: '6px'}}>100% satisfaction guaranteed</div>
-              </GaranteeContainer>
             </Panel.Body>
-            <Panel.Footer>
-              <Row>
-                <Col xs={4} style={{borderRight: '1px solid #ddd', padding: '10px'}}>How it works</Col>
-                <Col xs={4} style={{padding: '10px'}}>Sample gift</Col>
-                <Col xs={4} style={{borderLeft: '1px solid #ddd', padding: '10px'}}>Why Giftly</Col>
-              </Row>
-            </Panel.Footer>
           </StyledPanelMain>
-          <CustomizableCardsPanel>
+          <StyledPanel>
             <Panel.Heading>
-              Customizable greeting cards available for every occassion
+              Telegram Messages
             </Panel.Heading>
             <Panel.Body>
               <ul>
-                <li><img alt="" src={birthdayCard}/></li>
-                <li><img alt="" src={enjoy}/></li>
-                <li><img alt="" src={congrats}/></li>
-                <li><img alt="" src={photo}/></li>
-                <li><img alt="" src={loveCard}/></li>
-                <li><img alt="" src={birthdayCandles}/></li>
+                <li>Telegrame message.</li>
+                <li>Telegrame message.</li>
+                <li>Telegrame message.</li>
+                <li>Telegrame message.</li>
+                <li>Telegrame message.</li>
               </ul>
-            </Panel.Body>
-          </CustomizableCardsPanel>
-          <AboutUsPanel>
-            <Panel.Heading>
-              About
-            </Panel.Heading>
-            <Panel.Body>
-              <div style={{marginBottom: 20, clear: 'both'}}>
-                <img className="photo" alt="" src="" style={{float: 'left'}}/>
-                <div style={{float: 'left'}}>
-                  <div className="business-name">Charleston</div>
-                  <div className="rating">
-                    <div className="review-count">
-                      based on  on <img alt="yelp logo" src={yelpLogo}/>
-                    </div>
-                  </div>
-                  <div>business address </div>
-                  <div>555-555-5555</div>
-                </div>
-                <Clearfix />
-              </div>
-              <Clearfix />
-              <Row>
-                <Col xs={3}>
-                  <div>
-                    <div>Categories</div>
-                    <div>something</div>
-                  </div>
-                </Col>
-                <Col xs={3}>
-                  <div>
-                    <div>Price Range</div>
-                    <div>$100.00</div>
-                  </div>
-                </Col>
-                <Col xs={3}>
-                  <div>
-                    <div>Neighborhood</div>
-                    <div>Hayes Valley</div>
-                  </div>
-                </Col>
-                <Col xs={3}>
-                  <div>
-                    <div>Cross Streets</div>
-                    <div>123 ABC Stree</div>
-                  </div>
-                </Col>
-              </Row>
-              <div className="reviews">
-                <div>
-                  <img alt="yelp logo" src={yelpLogo} style={{width: 80}}/>
-                  <div className="text">reviews for ABC Company</div>
-                  <Clearfix />
-                </div>
-              </div>
-            </Panel.Body>
-            <Panel.Footer>
-              Is this your business? Take a moment to <span style={{color: '#1BBFDF'}}>claim the page</span> and customize for free.
-            </Panel.Footer>
-          </AboutUsPanel>
-          <StyledPanel>
-            <Panel.Heading>
-              If not ABC Company they may also enjoy
-            </Panel.Heading>
-            <Panel.Body>
-              <p>Browse places similar to ABC Company</p>
-              <Row>
-                <Col xs={6} className="restaurant-types">
-                  <ul>
-                    <li>Italian restaurants in Charleston</li>
-                    <li>French restaurants in Charleston</li>
-                  </ul>
-                </Col>
-                <Col xs={6} className="restaurant-city">
-                  <ul>
-                    <li>Restaurant in Hayes Valley</li>
-                    <li>Restaurants in Charleston</li>
-                  </ul>
-                </Col>
-              </Row>
-              <p>Or perhaps,</p>
-              <Row>
-                <Col xs={4} className="gift-card-types">
-                  <ul>
-                    <li><img alt="" src={dinner}/></li>
-                    <li>Dinner at Any restaurant</li>
-                  </ul>
-                </Col>
-                <Col xs={4} className="gift-card-types">
-                  <ul>
-                    <li><img alt="" src={anything}/></li>
-                    <li>Anything at Any place</li>
-                  </ul>
-                </Col>
-                <Col xs={4} className="gift-card-types">
-                  <ul>
-                    <li><img alt="" src={movies}/></li>
-                    <li>Movies at Any theater</li>
-                  </ul>
-                </Col>
-              </Row>
-              <p style={{color: '#1BBFDF', textDecorationLine: 'underline'}}>Browse more gift ideas</p>
-            </Panel.Body>
-          </StyledPanel>
-          <StyledPanel>
-            <Panel.Heading>
-              Why buy a gift card using <img alt="" src={logoSmall}/>?
-            </Panel.Heading>
-            <Panel.Body>
-              <p>
-                Giftly makes it easy to send a gift card that's personal, but also flexible and convenient. It's the perfect last minute gift for a birthday, graduation, wedding, holiday, and more.
-              </p>
-              <p>
-                Give any amount up to $1,000 and suggest any business, item, or experience you think the recipient will enjoy. Deliver in a customized greeting card or e-greeting card.
-              </p>
-              <p>
-                Gifts can be sent electronically by email or text¹ , printed at home, or delivered in the mail.
-              </p>
-              <p>
-                Your recipient redeems online and chooses how to receive the money. They can spend their funds at Zuni Café, or elsewhere if they prefer. There is no physical gift certificate to carry around or lose.
-              </p>
-              <p>
-                Gift cards sent through Giftly never expire and there are no fees, so recipients can redeem at any time.
-              </p>
-              <p>
-                Giftly combines the flexibility and convenience of giving money, but includes a thoughtful suggestion that makes it more personal.
-              </p>
-              <ButtonContainer>
-                <Button bsStyle="primary">See an example gift >> </Button>
-              </ButtonContainer>
-            </Panel.Body>
-          </StyledPanel>
-          <StyledPanel>
-            <Panel.Heading>
-              Help
-            </Panel.Heading>
-            <Panel.Body>
-              <p>
-                If you have questions, need help, or want to modify, resend, or
-                cancel a gift, please see our Support Center, where you can
-                access an array of self-service tools and our FAQ.
-              </p>
-              <GaranteeContainer>
-                <img alt="" style={{float: 'left'}} src={guaranteed_symbol}/>
-                <div style={{float: 'right', position: 'relative', top: '6px'}}>100% satisfaction guaranteed</div>
-              </GaranteeContainer>
-            </Panel.Body>
-          </StyledPanel>
-          <StyledPanel>
-            <Panel.Heading>
-              Gift Card Disclosure
-            </Panel.Heading>
-            <Panel.Body>
-              <p>
-                The Giftly Gift Card is aredeemed for oney through the Giftly
-                website. It is not accepted by any third-party merchant and is
-                not covered by the CARD Act. Giftly Gift Cards never expire and
-                there are no inactivity fees. Please see the Terms and
-                Condidtions for the complete terms.
-              </p>
             </Panel.Body>
           </StyledPanel>
           </div>
