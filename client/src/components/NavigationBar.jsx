@@ -62,7 +62,7 @@ class Header extends Component {
                 <img alt="" src={logo} />
               </Navbar.Brand>
               <div className="card-name">
-                {this.props.business.name} Gift Card
+                Gift Card
               </div>
             </NavbarHeader>
             <Clearfix />
@@ -87,10 +87,9 @@ class Header extends Component {
 
 class Breadcrumbs extends Component {
   render() {
-    const business = this.props.business
     return (
       <BreadcrumbsContainer>
-        Gift Cards > {business.location.city} > Restaurants > American > {business.name}
+        Gift Cards > Charleston > Restaurants > American > Restaurant
         <Clearfix />
       </BreadcrumbsContainer>
     );

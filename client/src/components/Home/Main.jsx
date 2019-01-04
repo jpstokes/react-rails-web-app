@@ -12,12 +12,10 @@ import congrats from '../../assets/congrats-greeting-card.png';
 import loveCard from '../../assets/love-greeting-card.png';
 import movies from '../../assets/movies-at-any-theater.png';
 import photo from '../../assets/photo-greeting-card.png';
-import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 import yelpLogo from '../../assets/yelp_logo.png';
-import Map from './map';
 import logoSmall from '../../assets/giftly-small-white.png';
 
 const Container = styled.div`
@@ -207,20 +205,18 @@ const AboutUsPanel = styled(StyledPanel)`
 
 class Main extends Component {
   render() {
-    const business = this.props && this.props.business;
-    const reviews = this.props && this.props.reviews;
     return (
       <Container className="Main">
-        { business && reviews
+        { true
           ? <div>
           <StyledPanelMain>
             <Panel.Heading>
-              Buy a Gift Card to {business.name}
+              Buy a Gift Card to Shop
             </Panel.Heading>
             <Panel.Body>
               <p>
                 Send a personalized cash gift card that is suggested for use at
-                &nbsp;<span style={{color: '#F1B01B', fontWeight: 'bold'}}>{business.name}</span>. Any amount up to $1,000. Deliver by email, mail, or print
+                &nbsp;<span style={{color: '#F1B01B', fontWeight: 'bold'}}>ABC Company</span>. Any amount up to $1,000. Deliver by email, mail, or print
                 at home.
               </p>
               <p>
@@ -260,20 +256,20 @@ class Main extends Component {
           </CustomizableCardsPanel>
           <AboutUsPanel>
             <Panel.Heading>
-              About {business.name}
+              About
             </Panel.Heading>
             <Panel.Body>
               <div style={{marginBottom: 20, clear: 'both'}}>
-                <img className="photo" alt="" src={business.image_url} style={{float: 'left'}}/>
+                <img className="photo" alt="" src="" style={{float: 'left'}}/>
                 <div style={{float: 'left'}}>
-                  <div className="business-name">{business.name}</div>
+                  <div className="business-name">Charleston</div>
                   <div className="rating">
                     <div className="review-count">
-                      based on {business.review_count} on <img alt="yelp logo" src={yelpLogo}/>
+                      based on  on <img alt="yelp logo" src={yelpLogo}/>
                     </div>
                   </div>
-                  <div>{business.location.address1}, {business.location.city}, {business.location.state}</div>
-                  <div>{business.phone}</div>
+                  <div>business address </div>
+                  <div>555-555-5555</div>
                 </div>
                 <Clearfix />
               </div>
@@ -282,13 +278,13 @@ class Main extends Component {
                 <Col xs={3}>
                   <div>
                     <div>Categories</div>
-                    <div>{business.categories.join(', ')}</div>
+                    <div>something</div>
                   </div>
                 </Col>
                 <Col xs={3}>
                   <div>
                     <div>Price Range</div>
-                    <div>{business.price}</div>
+                    <div>$100.00</div>
                   </div>
                 </Col>
                 <Col xs={3}>
@@ -300,29 +296,16 @@ class Main extends Component {
                 <Col xs={3}>
                   <div>
                     <div>Cross Streets</div>
-                    <div>{business.location.cross_streets}</div>
+                    <div>123 ABC Stree</div>
                   </div>
                 </Col>
               </Row>
-              <Map
-                isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `150px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}>
-              </Map>
               <div className="reviews">
                 <div>
                   <img alt="yelp logo" src={yelpLogo} style={{width: 80}}/>
-                  <div className="text">reviews for {business.name}</div>
+                  <div className="text">reviews for ABC Company</div>
                   <Clearfix />
                 </div>
-                { reviews && reviews.map((review, index) =>
-                  <Row key={index} style={{marginBottom: 20}}>
-                    <Col xs={3} className="review-rating"></Col>
-                    <Col xs={9} className="review">"{review.text}" <span style={{color: '#1BBFDF'}}>read more</span></Col>
-                  </Row>
-                )}
               </div>
             </Panel.Body>
             <Panel.Footer>
@@ -331,21 +314,21 @@ class Main extends Component {
           </AboutUsPanel>
           <StyledPanel>
             <Panel.Heading>
-              If not {business.name}, they may also enjoy
+              If not ABC Company they may also enjoy
             </Panel.Heading>
             <Panel.Body>
-              <p>Browse places similar to {business.name}</p>
+              <p>Browse places similar to ABC Company</p>
               <Row>
                 <Col xs={6} className="restaurant-types">
                   <ul>
-                    <li>Italian restaurants in {business.location.city}</li>
-                    <li>French restaurants in {business.location.city}</li>
+                    <li>Italian restaurants in Charleston</li>
+                    <li>French restaurants in Charleston</li>
                   </ul>
                 </Col>
                 <Col xs={6} className="restaurant-city">
                   <ul>
                     <li>Restaurant in Hayes Valley</li>
-                    <li>Restaurants in {business.location.city}</li>
+                    <li>Restaurants in Charleston</li>
                   </ul>
                 </Col>
               </Row>
